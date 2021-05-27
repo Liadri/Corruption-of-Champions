@@ -385,7 +385,8 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 
 		function improveItem(item:ItemType, from:ItemType):void {
 			//scene("strings/itemImprove/improveThatItem", myLocals);
-			outputText("You ask" + _name + " if she could imbue an item with her power.\n\n"+
+			clearOutput();
+			outputText("You ask " + _name + " if she could imbue an item with her power.\n\n"+
 			"<i>\"Certainly mother! Just leave the item on the ground and let me get to work.\"</i>\n\n"+
 			_name + " trots over to the item and starts channeling power.");
 			if (isCorrupt){
@@ -772,15 +773,19 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 	}
 
 	private function growUpScene():void {
-		if (isCorrupt)spriteSelect(SpriteDb.s_celessBlack);
-		if (!isCorrupt)spriteSelect(SpriteDb.s_celessWhite);
+		if (isCorrupt) {
+			spriteSelect(SpriteDb.s_celessBlack);
+		}
+		else {
+			spriteSelect(SpriteDb.s_celessWhite);
+		}
 
 		//scene("strings/growUp", myLocals);
 		clearOutput();
 		outputText("As you wake up this morning, you check the space next to you where "+_name+" usually sleeps, and find it empty.\n\n" +
 				"You almost panic for a moment, before calming down and deciding to go look for her. When you finally find her by the stream, she’s holding her forehead, visibly in pain.\n\n");
 		if (isCorrupt) {
-			outputText("\"<i>Ahhhh so good… this feels way too good!…Mom please look!</i>\"\n\n");
+			outputText("\"<i>Ahhhh so good… this feels way too good! …Mom please look!</i>\"\n\n");
 			outputText("Well, looks like it wasn’t pain, not at all. You watch spellbound as a duo of parallel horns, symbols of her corruption, push out of "+_name+"’s forehead. " +
 					"She holds her horns like a pair of dicks, playing her hands along their length as if trying to masturbate them. " +
 					"Speaking of which, her 25 inch long horse cock is now fully erect and throbbing, almost as if an invisible hand was toying with it, a thick flow of precum steadily seeping out already. " +
@@ -804,7 +809,7 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 		}
 		if (player.isFemaleOrHerm()) {
 			outputText("This is a… somewhat unusual situation, but as a ");
-			if (player.isFemale()) outputText("female ");
+			if (player.isFemale()) outputText("female");
 			if (player.isHerm()) outputText("herm like her");
 			outputText(" it’s something you can understand. ");
 		}
@@ -817,9 +822,9 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 		if (isCorrupt) {
 			outputText("Weirdly enough, you feel something change in you as the corrupted cum reaches your stomach. ");
 			CelessGoIntoHeatRut();
-			outputText(" Aroused like you are its barely if you can hold yourself from");
-			if(player.hasStatusEffect(StatusEffects.Heat)) outputText(" impaling yourself on her alluring cock.");
-			else if(player.hasStatusEffect(StatusEffects.Rut)) outputText(" moving behind her and plowing her alluring pussy with your painfully erect "+player.cockDescript()+".");
+			outputText("Aroused like you are its barely if you can hold yourself from ");
+			if(player.hasStatusEffect(StatusEffects.Heat)) outputText("impaling yourself on her alluring cock.");
+			else if(player.hasStatusEffect(StatusEffects.Rut)) outputText("moving behind her and plowing her alluring pussy with your painfully erect "+player.cockDescript()+".");
 			outputText(" how will you handle the situation?");
 		}
 		else {
@@ -831,9 +836,9 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 					"The morning pretty much continues as normal, aside from a lecture on sex you put some time aside to give her, mainly on what and who to avoid and why.");
 		}
 
+		menu();
 		if (isCorrupt) {
 			//addButton(0, "MasturbateHer", incestScene, "masturbateHer");
-			menu();
 			addButton(0,"Masturbate Her", incestMasturbate);
 			if (player.isMaleOrHerm()) {
 				//addButton(1, "Fuck Her", incestScene, "fuckHer");
@@ -847,6 +852,9 @@ public class CelessScene extends XXCNPC implements TimeAwareInterface {
 			} else {
 				addButtonDisabled(2, "Centaur Toys");
 			}
+		}
+		else{
+			doNext(camp.returnToCampUseOneHour);
 		}
 	}
 
